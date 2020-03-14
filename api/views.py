@@ -6,6 +6,7 @@ import json
 import binascii
 import os
 
+
 def voter_login(request):
     # TODO: Fix the number of times one can try a password before the account id blocked temporarily
     # get values passed in the POST object
@@ -18,12 +19,14 @@ def voter_login(request):
             # get voter with the specified registration number
             voter = Voter.objects.get(voter_reg_no=reg_no)
             # hash the passed password
-            pwdhash = hashlib.pbkdf2_hmac('sha512', password.encode('utf-8'), voter.password_salt.encode('utf-8'), 100000)
+            pwdhash = hashlib.pbkdf2_hmac('sha512', password.encode('utf-8'), voter.password_salt.encode('utf-8'),
+                                          100000)
             pwdhash = binascii.hexlify(pwdhash)
             # check if the passwords are the same
             if voter.voter_password == pwdhash.decode('ascii'):
                 result['status'] = 'success'
-                result['data'] = {'id': voter.voter_id, 'reg_no': voter.voter_reg_no, 'email': voter.email, 'school_id': voter.school_id.school_id}
+                result['data'] = {'id': voter.voter_id, 'reg_no': voter.voter_reg_no, 'email': voter.email,
+                                  'school_id': voter.school_id.school_id}
                 result['msg'] = 'Authentication successful.'
             else:
                 result['status'] = 'error'
@@ -36,6 +39,7 @@ def voter_login(request):
         result['msg'] = 'The school associated with the provided id does not exist.'
     # return a JSON object
     return HttpResponse(json.dumps(result))
+
 
 def voter_registration(request):
     # TODO: Check if the registration numbers & emails have been registered before
@@ -59,7 +63,8 @@ def voter_registration(request):
             # get the school with the provided school id
             school = School.objects.get(school_id=int(school_id))
             # Save the voter
-            Voter.objects.create(voter_reg_no=reg_no, email=email, voter_password=pwdhash.decode('ascii'), password_salt=salt.decode('ascii'), school_id=school)
+            Voter.objects.create(voter_reg_no=reg_no, email=email, voter_password=pwdhash.decode('ascii'),
+                                 password_salt=salt.decode('ascii'), school_id=school)
             result['status'] = 'success'
             result['msg'] = 'Voter created successfully.'
         except School.DoesNotExist:
