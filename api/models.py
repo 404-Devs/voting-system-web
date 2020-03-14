@@ -9,6 +9,7 @@ class Voter(models.Model):
     voter_reg_no = models.CharField(max_length=50)
     email = models.EmailField()
     voter_password = models.CharField(max_length=255)
+    password_salt = models.CharField(max_length=255)
     school_id = models.ForeignKey(School, on_delete=models.CASCADE)
 
 class Election(models.Model):

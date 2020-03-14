@@ -2,6 +2,7 @@
   <dictionary name="stephen">
     <words>
       <w>blockchain</w>
+      <w>pwdhash</w>
     </words>
   </dictionary>
 </component>
