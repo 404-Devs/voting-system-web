@@ -2,16 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="f5239b13-6aeb-4ae7-9e15-e4051bf8207e" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/admin_site/migrations/0001_initial.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/api/migrations/0002_auto_20200314_1216.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/api/migrations/0003_auto_20200314_1217.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/api/migrations/0004_auto_20200314_1219.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/api/migrations/0005_voter_password_salt.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dictionaries/stephen.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dictionaries/stephen.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/admin_site/migrations/0002_auto_20200314_1242.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/api/migrations/0006_auto_20200314_1242.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/admin_site/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/admin_site/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/api/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/api/admin.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/api/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/api/models.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/api/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/api/views.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/db.sqlite3" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/voting_system_web/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/voting_system_web/settings.py" afterDir="false" />
@@ -91,7 +85,7 @@
       <option name="presentableId" value="Default" />
       <updated>1584182002214</updated>
       <workItem from="1584182006947" duration="2206000" />
-      <workItem from="1584185109745" duration="4269000" />
+      <workItem from="1584185109745" duration="7041000" />
     </task>
     <servers />
   </component>
