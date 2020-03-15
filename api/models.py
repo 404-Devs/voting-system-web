@@ -11,6 +11,7 @@ class Voter(models.Model):
     voter_password = models.CharField(max_length=255)
     password_salt = models.CharField(max_length=255)
     school_id = models.ForeignKey(School, on_delete=models.CASCADE)
+    login_attempts = models.IntegerField(default=10)
 
 class Election(models.Model):
     election_id = models.AutoField(primary_key=True)

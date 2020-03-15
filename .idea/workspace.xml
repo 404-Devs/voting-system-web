@@ -2,14 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="f5239b13-6aeb-4ae7-9e15-e4051bf8207e" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/admin_site/migrations/0002_auto_20200314_1242.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/api/migrations/0006_auto_20200314_1242.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/api/migrations/0007_voter_login_attempts.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/admin_site/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/admin_site/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/admin_site/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/admin_site/admin.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/api/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/api/models.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/api/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/api/views.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/db.sqlite3" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/voting_system_web/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/voting_system_web/settings.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/voting_system_web/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/voting_system_web/urls.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
