@@ -23,6 +23,7 @@ class Aspirant(models.Model):
     aspirant_id = models.AutoField(primary_key=True)
     voter_id = models.ForeignKey(Voter, on_delete=models.CASCADE)
     aspirant_photo = models.ImageField(upload_to='aspirant_photos')
+    blockchain_address = models.CharField(max_length=255)
 
 class Team(models.Model):
     team_id = models.AutoField(primary_key=True)
@@ -32,7 +33,6 @@ class Team(models.Model):
     chairman_id = models.ForeignKey(Aspirant, related_name='chairman_id', on_delete=models.CASCADE)
     sec_gen_id = models.ForeignKey(Aspirant, related_name='sec_gen_id', on_delete=models.CASCADE)
     treasurer_id = models.ForeignKey(Aspirant, related_name='treasurer_id', on_delete=models.CASCADE)
-    blockchain_address = models.CharField(max_length=255)
 
 class Vote(models.Model):
     vote_id = models.AutoField(primary_key=True)
