@@ -1,4 +1,3 @@
-from django.shortcuts import render
 from django.http import HttpResponse
 from .models import Voter, School
 import hashlib
@@ -47,8 +46,8 @@ def voter_login(request):
     return HttpResponse(json.dumps(result))
 
 
+# TODO: Make sure that only admins can call this function
 def voter_registration(request):
-    # TODO: Make sure that only registered admins can do voter registration
     # get values passed in the POST object
     reg_no = request.POST.get("reg_no")
     email = request.POST.get('email')

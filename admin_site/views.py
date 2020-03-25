@@ -39,6 +39,7 @@ def admin_login(request):
     return HttpResponse(json.dumps(result))
 
 
+# TODO: Make sure that only admins can call this function
 def admin_registration(request):
     f_name = request.POST.get('first_name')
     l_name = request.POST.get('last_name')
