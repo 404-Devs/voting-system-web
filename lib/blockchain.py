@@ -45,14 +45,21 @@ def get_winner_bc(electionId):
 def get_team_bc(electionId, teamId):
     return VOTING.functions.getTeam(electionId, teamId).call()
 
+def get_ballot_bc(electionId, token):
+    return VOTING.functions.getBallot(electionId, token).call()
+
 if __name__ == "__main__":
     import time
     print(add_aspirant_to_bc(2, "John"))
     print(add_aspirant_to_bc(3, "Jane"))
     print(add_aspirant_to_bc(4, "Doe"))
-    print(add_election_to_bc(4, "UNSA 2024", int(time.time()) + 86400, int(time.time()) + 86400 * 2))
-    print(add_team_to_bc(4, 1, "Team Doe", 2, 3, 4))
-    print(add_voting_token_bc(4))
-    print(cast_bc(4, 1, "asdf"))
-    print(end_election_bc(4))
-    print(get_team_bc(4, 1))
+    print(add_election_to_bc(7, "UNSA 2024", 0, int(time.time()) + 86400 * 2))
+    print(add_team_to_bc(7, 1, "Team Doe", 2, 3, 4))
+    result = add_voting_token_bc(7)
+    print(result)
+    print(cast_bc(7, 1, result[1]))
+    print(end_election_bc(7))
+    print(get_team_bc(7, 1))
+    a = get_ballot_bc(7, result[1])
+    print(a)
+    print(a[1].decode('cp852'))
