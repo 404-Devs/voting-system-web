@@ -2,10 +2,8 @@ import json
 import uuid
 from web3 import Web3
 
-# TODO: Setup a Ganache workspace
-# TODO: Deploy contract to workspace
+
 WEB3 = Web3(Web3.HTTPProvider("http://127.0.0.1:7545"))
-# TODO: Create your own keys.json file based on the format provided in the keys_format.json file
 keys = json.loads(open("keys.json", "r").read())
 PRIVATE_KEY = keys['private']
 PUBLIC_KEY = keys['public']
