@@ -6,7 +6,7 @@ import binascii
 import os
 
 
-result = {'status': 'error'}
+result = {'code': 0, 'status': 'error'}
 
 def admin_login(request):
     username = request.POST.get("username")
