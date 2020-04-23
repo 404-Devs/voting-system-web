@@ -1,0 +1,60 @@
+# Register school
+# POST http://127.0.0.1:8000/api/school/register HTTP/1.1
+# content-type: application/x-www-form-urlencoded
+
+# school_name=School of Computing and Informatics
+
+
+# # Update school information
+# POST http://127.0.0.1:8000/api/school/update HTTP/1.1
+# content-type: application/x-www-form-urlencoded
+
+# school_id=1
+# &school_name=Medschool
+
+
+# Register voter
+# POST http://127.0.0.1:8000/api/voter/register HTTP/1.1
+# content-type: application/x-www-form-urlencoded
+
+# reg_no=P15/1234/2018
+# &email=test@gmail.com
+# &password=testpass123
+# &school_id=2
+
+
+# Register election
+# POST http://127.0.0.1:8000/api/election/register HTTP/1.1
+# content-type: application/x-www-form-urlencoded
+
+# election_name=UNSA 2020
+# &start_timestamp=2020-07-14 00:00
+# &end_timestamp=2020-07-16 00:00
+
+
+# Register aspirant
+# POST http://127.0.0.1:8000/api/aspirant/register HTTP/1.1
+# content-type: application/x-www-form-urlencoded
+
+# aspirant_reg_no=P15/1234/2018
+# &aspirant_photo=0
+
+
+# Register Team
+# POST http://127.0.0.1:8000/api/team/register HTTP/1.1
+# content-type: application/x-www-form-urlencoded
+
+# team_name=Comrades Power
+# &team_logo=0
+# &election_id=4
+# &chairman_reg=P15/1234/2018
+# &sec_gen_reg=P15/1234/2018
+# &treasurer_reg=P15/1234/2018
+
+
+# Vote
+POST http://127.0.0.1:8000/api/vote HTTP/1.1
+content-type: application/x-www-form-urlencoded
+
+voter_reg=P15/1234/2018
+&election_id=4
