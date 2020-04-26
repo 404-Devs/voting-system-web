@@ -68,6 +68,8 @@ def voter_login(request):
     # get values passed in the POST object
     reg_no = request.POST.get("reg_no")
     password = request.POST.get("password")
+    result[reg_no] = reg_no
+    password[password] = password
     # make sure that the POST values are not empty
     if reg_no is not None and password is not None:
         try:
