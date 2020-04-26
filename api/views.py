@@ -89,7 +89,7 @@ def voter_login(request):
                     voter.save()
                 result['status'] = 'success'
                 result['data'] = {'id': voter.voter_id, 'reg_no': voter.voter_reg_no, 'email': voter.email,
-                                  'school_id': voter.school_id.school_id}
+                                  'school_id': voter.school.school_id}
                 result['msg'] = 'Authentication successful.'
             else:
                 voter.login_attempts -= 1

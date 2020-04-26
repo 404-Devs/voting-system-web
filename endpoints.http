@@ -1,3 +1,11 @@
+# login
+POST https://votingtest.herokuapp.com/api/voter/login HTTP/1.1
+content-type: application/x-www-form-urlencoded
+
+reg_no=P15/1234/2018
+&password=testpass123
+
+
 # Register school
 # POST http://127.0.0.1:8000/api/school/register HTTP/1.1
 # content-type: application/x-www-form-urlencoded
