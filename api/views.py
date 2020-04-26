@@ -26,14 +26,11 @@ def admin_login(request):
                                   'uname': admin.user_name, 'email': admin.email}
                 result['msg'] = 'Authentication successful.'
             else:
-                result['status'] = 'error'
                 result['msg'] = 'Authentication failed.'
         except Admin.DoesNotExist:
-            result['status'] = 'error'
             result['msg'] = 'User does not exist with administration rights.'
 
     else:
-        result['status'] = 'error'
         result['msg'] = 'User does not exit'
     # return a response of json object
     return HttpResponse(json.dumps(result))
@@ -62,10 +59,8 @@ def admin_reg(request):
             result['status'] = 'success'
             result['msg'] = 'User successfully created.'
         except Admin.DoesNotExist:
-            result['status'] = 'error'
             result['msg'] = 'Failed to create user'
     else:
-        result['status'] = 'error'
         result['msg'] = 'Provide all the required values!'
     return HttpResponse(json.dumps(result))
 
@@ -103,7 +98,7 @@ def voter_login(request):
         except Voter.DoesNotExist:
             result['msg'] = 'Voter does not exist.'
     else:
-        result['msg'] = 'The school associated with the provided id does not exist.'
+        result['msg'] = 'Make sure that you provide all the required values.'
     # return a JSON object
     return HttpResponse(json.dumps(result))
 

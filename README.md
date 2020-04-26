@@ -27,7 +27,7 @@ password=0123456789
 POST <https://votingtest.herokuapp.com/api/school/register>
 
 Input\
-school_name=School of Computing and Informatics\
+school_name=School of Computing and Informatics
 
 #### Update school information
 
