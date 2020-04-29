@@ -1,4 +1,4 @@
 web3
-Django==3.0.4
+Django==2.2.7
 gunicorn
 django-heroku
