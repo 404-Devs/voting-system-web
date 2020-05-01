@@ -190,6 +190,7 @@ def get_elections(request):
     elections = Election.objects.all()
     result['status'] = 'success'
     result['data'] = {}
+    result['msg'] = "Query successful"
     
     for data in elections:
         result['data'][data.election_id] = {'id': data.election_id, 'name': data.election_name, 'start': time.mktime(data.start_timestamp.timetuple()), 'end': time.mktime(data.end_timestamp.timetuple()), 'last_mod': time.mktime(data.last_modified.timetuple())}

@@ -32,12 +32,12 @@
 
 
 # Register election
-POST http://127.0.0.1:8000/api/election/register HTTP/1.1
-content-type: application/x-www-form-urlencoded
+# POST https://votingtest.herokuapp.com/api/election/register HTTP/1.1
+# content-type: application/x-www-form-urlencoded
 
-election_name=UNSA 2020
-&start_timestamp=2020-07-14 00:00
-&end_timestamp=2020-07-16 00:00
+# election_name=Test Election
+# &start_timestamp=2020-07-1 00:00
+# &end_timestamp=2021-07-16 00:00
 
 
 # Register aspirant
