@@ -4,6 +4,7 @@ import hashlib
 import json
 import binascii
 import os
+import time
 
 
 result = {'code': 0, 'status': 'error'}
@@ -183,6 +184,15 @@ def election_reg(request):
         result['msg'] = 'Election created successfully.'
     else:
         result['msg'] = 'Make sure that you provide all the required values.'
+    return HttpResponse(json.dumps(result))
+
+def get_elections(request):
+    elections = Election.objects.all()
+    result['status'] = 'success'
+    result['data'] = {}
+    
+    for data in elections:
+        result['data'][data.election_id] = {'id': data.election_id, 'name': data.election_name, 'start': time.mktime(data.start_timestamp.timetuple()), 'end': time.mktime(data.end_timestamp.timetuple()), 'last_mod': time.mktime(data.last_modified.timetuple())}
     return HttpResponse(json.dumps(result))
     
 # TODO: Make sure that only admins can call this function

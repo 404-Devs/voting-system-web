@@ -1,9 +1,9 @@
 # # login
-POST https://votingtest.herokuapp.com/api/voter/login HTTP/1.1
-content-type: application/x-www-form-urlencoded
+# POST https://votingtest.herokuapp.com/api/voter/login HTTP/1.1
+# content-type: application/x-www-form-urlencoded
 
-reg_no=P15/1234/2018
-&password=testpass12
+# reg_no=P15/1234/2018
+# &password=testpass123
 
 
 # Register school
@@ -32,12 +32,12 @@ reg_no=P15/1234/2018
 
 
 # Register election
-# POST http://127.0.0.1:8000/api/election/register HTTP/1.1
-# content-type: application/x-www-form-urlencoded
+POST http://127.0.0.1:8000/api/election/register HTTP/1.1
+content-type: application/x-www-form-urlencoded
 
-# election_name=UNSA 2020
-# &start_timestamp=2020-07-14 00:00
-# &end_timestamp=2020-07-16 00:00
+election_name=UNSA 2020
+&start_timestamp=2020-07-14 00:00
+&end_timestamp=2020-07-16 00:00
 
 
 # Register aspirant

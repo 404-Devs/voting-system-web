@@ -3,22 +3,26 @@ import uuid
 from web3 import Web3
 
 
-WEB3 = Web3(Web3.HTTPProvider("http://127.0.0.1:7545"))
 keys = json.loads(open("keys.json", "r").read())
+WEB3 = Web3(Web3.HTTPProvider(keys['url']))
 PRIVATE_KEY = keys['private']
 PUBLIC_KEY = keys['public']
+# print(WEB3.eth.accounts.wallet.add(PRIVATE_KEY))
+# print(WEB3.eth.accounts)
 contract = json.loads(open("Voting.json", "r").read())
-VOTING = WEB3.eth.contract(address=contract['networks']['5777']['address'], abi=contract['abi'])
+VOTING = WEB3.eth.contract(address="0x5c8250d70caeb93D91D25374E436942e4455cC05", abi=contract['abi'])
 
 def execute(tx):
-    try:
-        tx_dict = tx.buildTransaction({'nonce': WEB3.eth.getTransactionCount(PUBLIC_KEY)})
+    # try:
+        print(WEB3.eth.getTransactionCount(PUBLIC_KEY))
+        tx_dict = tx.buildTransaction({'nonce': WEB3.eth.getTransactionCount(PUBLIC_KEY), 'gas': 2000000,'gasPrice': Web3.toWei('50', 'gwei'),})
         signed_tx = WEB3.eth.account.sign_transaction(tx_dict, PRIVATE_KEY)
         result = WEB3.eth.sendRawTransaction(signed_tx.rawTransaction)
+        print(result)
         receipt = WEB3.eth.getTransactionReceipt(result)
         return {'success': True, 'receipt': receipt}
-    except ValueError:
-        return {'success': False}
+    # except ValueError:
+    #     return {'success': False}
 
 def add_election_to_bc(electionId, name, start_timestamp, end_timestamp):
     return execute(VOTING.functions.setElection(electionId, name, start_timestamp, end_timestamp))
@@ -51,15 +55,15 @@ def get_ballot_bc(electionId, token):
 if __name__ == "__main__":
     import time
     print(add_aspirant_to_bc(2, "John"))
-    print(add_aspirant_to_bc(3, "Jane"))
-    print(add_aspirant_to_bc(4, "Doe"))
-    print(add_election_to_bc(7, "UNSA 2024", 0, int(time.time()) + 86400 * 2))
-    print(add_team_to_bc(7, 1, "Team Doe", 2, 3, 4))
-    result = add_voting_token_bc(7)
-    print(result)
-    print(cast_bc(7, 1, result[1]))
-    print(end_election_bc(7))
-    print(get_team_bc(7, 1))
-    a = get_ballot_bc(7, result[1])
-    print(a)
-    print(a[1].decode('cp852'))
+    # print(add_aspirant_to_bc(3, "Jane"))
+    # print(add_aspirant_to_bc(4, "Doe"))
+    # print(add_election_to_bc(7, "UNSA 2024", 0, int(time.time()) + 86400 * 2))
+    # print(add_team_to_bc(7, 1, "Team Doe", 2, 3, 4))
+    # result = add_voting_token_bc(7)
+    # print(result)
+    # print(cast_bc(7, 1, result[1]))
+    # print(end_election_bc(7))
+    # print(get_team_bc(7, 1))
+    # a = get_ballot_bc(7, result[1])
+    # print(a)
+    # print(a[1].decode('cp852'))

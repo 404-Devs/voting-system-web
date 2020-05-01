@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.urls import path
-from api.views import voter_login, voter_reg, sch_reg, sch_update, election_reg, aspirant_reg, team_reg, vote, admin_login, admin_reg
+from api.views import voter_login, voter_reg, sch_reg, sch_update, election_reg, aspirant_reg, team_reg, vote, admin_login, admin_reg, get_elections
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -14,4 +14,5 @@ urlpatterns = [
     path('api/school/update', sch_update),
     path('api/admin/login', admin_login),
     path('api/admin/register', admin_reg),
+    path('api/elections', get_elections)
 ]
