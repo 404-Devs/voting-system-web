@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>Add Voter</h2>
+<form method="POST" action="{% url "voter_reg" %}">
+  <div class="form-row">
+    <div class="form-group col-md-6">
+      <label for="reg_no">Registration Number i.e. P15/1234/2018</label>
+      <input type="text" class="form-control" id="reg_no" name="reg_no" required>
+      <input type="text" name="school_id" value="{{ school_id}}" class="hideMe">
+      <input type="text" name="password" value="testpass123" class="hideMe">
+    </div>
+  </div>
+  <div class="form-row">
+    <div class="form-group col-md-6">
+      <label for="email">Email Address</label>
+      <input type="email" class="form-control" id="email" name="email" required>
+    </div>
+  </div>
+  <button type="submit" class="btn btn-primary">Add</button>
+</form>
+{% endblock %}

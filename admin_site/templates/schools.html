@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>Schools</h2>
+<div class="cards-wrapper">
+    {% for school in schools_list %}
+        <div class="card c-card">
+            <div class="card-body">
+                <h5 class="card-title">{{ school.name }}</h5>
+                <a href="{% url "view_school" school.id %}" class="btn btn-primary">View</a>
+            </div>
+        </div>
+    {% endfor %}
+</div>
+{% endblock %}

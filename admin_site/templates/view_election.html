@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% block content %}
+<h3>{{ name }}</h3>
+<p>Start: {{ start }}</p>
+<p>End: {{ end }}</p>
+<h4>Parties</h4>
+<a href="{% url "admin_create_team" id %}"><button class="btn btn-primary">Add Party</button></a>
+<div class="cards-wrapper">
+    {% for team in teams_list %}
+        <div class="card c-card">
+            <img src="{{ team.logo }}" class="card-img-top" alt="Party Logo">
+            <div class="card-body">
+                <h5 class="card-title">{{ team.name }}</h5>
+                <p class="card-text">Chairman: {{ team.chairman }}</p>
+                <p class="card-text">Sec. Gen.: {{ team.sec_gen }}</p>
+                <p class="card-text">Treasurer: {{ team.treasurer }}</p>
+            </div>
+        </div>
+    {% endfor %}
+</div>
+{% endblock %}

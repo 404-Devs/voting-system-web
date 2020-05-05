@@ -7,7 +7,7 @@
 
 
 # Register school
-# POST https://votingtest.herokuapp.com/api/school/register HTTP/1.1
+# POST http://127.0.0.1:8000/api/school/register HTTP/1.1
 # content-type: application/x-www-form-urlencoded
 
 # school_name=School of Computing and Informatics
@@ -22,7 +22,7 @@
 
 
 # Register voter
-# POST https://votingtest.herokuapp.com/api/voter/register HTTP/1.1
+# POST http://127.0.0.1:8000/api/voter/register HTTP/1.1
 # content-type: application/x-www-form-urlencoded
 
 # reg_no=P15/1234/2018
@@ -54,7 +54,7 @@
 
 # team_name=Comrades Power
 # &team_logo=0
-# &election_id=4
+# &election_id=1
 # &chairman_reg=P15/1234/2018
 # &sec_gen_reg=P15/1234/2018
 # &treasurer_reg=P15/1234/2018

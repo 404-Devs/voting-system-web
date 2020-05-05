@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>Elections</h2>
+<div class="cards-wrapper">
+    {% for election in elections_list %}
+        <div class="card c-card">
+            <div class="card-body">
+                <h5 class="card-title">{{ election.name }}</h5>
+                <p class="card-text">Start: {{ election.start }}</p>
+                <p class="card-text">End: {{ election.end }}</p>
+                <a href="{% url "admin_view_election" election.id %}" class="btn btn-primary">View</a>
+            </div>
+        </div>
+    {% endfor %}
+</div>
+{% endblock %}

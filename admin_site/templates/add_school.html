@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>Add School</h2>
+<form method="POST" action="{% url "school_reg" %}">
+  <div class="form-row">
+    <div class="form-group col-md-6">
+      <label for="school_name">School Name</label>
+      <input type="text" class="form-control" id="school_name" name="school_name" required>
+    </div>
+  </div>
+  <button type="submit" class="btn btn-primary">Add</button>
+</form>
+{% endblock %}

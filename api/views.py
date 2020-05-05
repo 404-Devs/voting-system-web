@@ -69,7 +69,6 @@ def voter_login(request):
     # get values passed in the POST object
     reg_no = request.POST.get("reg_no")
     password = request.POST.get("password")
-    print(reg_no, password)
     # make sure that the POST values are not empty
     if reg_no is not None and password is not None:
         try:
@@ -193,17 +192,19 @@ def get_elections(request):
     result['msg'] = "Query successful"
     
     for data in elections:
-        result['data'][data.election_id] = {'id': data.election_id, 'name': data.election_name, 'start': time.mktime(data.start_timestamp.timetuple()), 'end': time.mktime(data.end_timestamp.timetuple()), 'last_mod': time.mktime(data.last_modified.timetuple())}
+        result['data'][data.election_id] = {'id': data.election_id, 'name': data.election_name, 'start': data.start_unix, 'end': data.end_unix, 'last_mod': time.mktime(data.last_modified.timetuple())}
     return HttpResponse(json.dumps(result))
     
 # TODO: Make sure that only admins can call this function
 def aspirant_reg(request):
     voter_reg = request.POST.get("aspirant_reg_no")
     aspirant_photo = request.POST.get("aspirant_photo")
-    if voter_reg is not None or aspirant_photo is not None:
+    fname = request.POST.get("fname")
+    lname = request.POST.get("lname")
+    if voter_reg is not None or aspirant_photo is not None or fname is not None or lname is not None:
         try:
             voter = Voter.objects.get(voter_reg_no=voter_reg)
-            Aspirant.objects.create(voter=voter, aspirant_photo=aspirant_photo)
+            Aspirant.objects.create(voter=voter, aspirant_photo=aspirant_photo, fname=fname, lname=lname)
             result['status'] = 'success'
             result['msg'] = 'Aspirant added successfully.'
         except Voter.DoesNotExist:
@@ -211,6 +212,10 @@ def aspirant_reg(request):
     else:
         result['msg'] = 'Make sure that you provide all the required values.'
     return HttpResponse(json.dumps(result))
+
+
+def get_aspirant(request):
+    pass
 
 # TODO: Make sure that only admins can call this function
 def team_reg(request):
@@ -233,6 +238,12 @@ def team_reg(request):
         result['msg'] = 'Make sure that you provide all the required values.'
     return HttpResponse(json.dumps(result))
 
+def get_teams(request):
+    pass
+
+
+def get_team(request):
+    pass
 
 # TODO: Make sure that only authenticated users can call this function
 # TODO: Add the blockchain

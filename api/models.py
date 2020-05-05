@@ -1,23 +1,24 @@
 from django.db import models
+import time
 
 class Admin(models.Model):
     admin_id = models.AutoField(primary_key=True)
     first_name = models.CharField(max_length=50)
     last_name = models.CharField(max_length=50)
     user_name = models.CharField(max_length=50)
-    email = models.EmailField()
+    email = models.EmailField(unique=True)
     password = models.CharField(max_length=255)
     password_salt = models.CharField(max_length=255)
 
 class School(models.Model):
     school_id = models.AutoField(primary_key=True)
-    school_name = models.CharField(max_length=255)
+    school_name = models.CharField(max_length=255, unique=True)
     last_modified = models.DateTimeField(auto_now_add=True)
 
 class Voter(models.Model):
     voter_id = models.AutoField(primary_key=True)
-    voter_reg_no = models.CharField(max_length=50)
-    email = models.EmailField()
+    voter_reg_no = models.CharField(max_length=50, unique=True)
+    email = models.EmailField(unique=True)
     voter_password = models.CharField(max_length=255)
     password_salt = models.CharField(max_length=255)
     school = models.ForeignKey(School, on_delete=models.CASCADE)
@@ -30,11 +31,25 @@ class Election(models.Model):
     end_timestamp = models.DateTimeField(auto_now_add=False)
     last_modified = models.DateTimeField(auto_now_add=True)
 
+    @property
+    def to_unix(self):
+        return time.mktime(self.start_timestamp.timetuple())
+
+    @property
+    def end_unix(self):
+        return time.mktime(self.end_timestamp.timetuple())
+
 class Aspirant(models.Model):
     aspirant_id = models.AutoField(primary_key=True)
-    voter = models.ForeignKey(Voter, on_delete=models.CASCADE)
+    voter = models.OneToOneField(Voter, on_delete=models.CASCADE)
+    fname = models.CharField(max_length=50)
+    lname = models.CharField(max_length=50)
     aspirant_photo = models.TextField()
     last_modified = models.DateTimeField(auto_now_add=True)
+
+    @property
+    def name(self):
+        return self.fname + " " + self.lname
 
 class Team(models.Model):
     team_id = models.AutoField(primary_key=True)
