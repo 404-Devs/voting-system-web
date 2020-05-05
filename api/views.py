@@ -204,7 +204,7 @@ def get_election(request, election_id):
     result['parties'] = {}
 
     for team in teams:
-        result['parties'][team.team_id] = {'id': team.team_id, 'name': team.team_name, 'logo': team.team_logo, 'chairman_id': team.chairman.voter.voter_id, 'treasurer_id': team.treasurer.voter.voter_id, 'sec_gen_id': team.sec_gen.voter.voter_id}
+        result['parties'][team.team_id] = {'id': team.team_id, 'name': team.team_name, 'logo': team.team_logo, 'slogan': team.slogan, 'chairman_id': team.chairman.voter.voter_id, 'treasurer_id': team.treasurer.voter.voter_id, 'sec_gen_id': team.sec_gen.voter.voter_id}
     return HttpResponse(json.dumps(result))
 
     
@@ -241,13 +241,14 @@ def team_reg(request):
     chairman_id = request.POST.get("chairman_reg")
     sec_gen_id = request.POST.get("sec_gen_reg")
     treasurer_id = request.POST.get("treasurer_reg")
-    if team_name is not None and team_logo is not None and election_id is not None and sec_gen_id is not None and treasurer_id is not None:
+    slogan = request.POST.get("slogan")
+    if team_name is not None and team_logo is not None and election_id is not None and sec_gen_id is not None and treasurer_id is not None and slogan is not None:
         # TODO: Check if election_id, chairman_id, sec_gen_id and treasurer_id exist
         election = Election.objects.get(election_id=election_id)
         chairman = Aspirant.objects.get(voter=Voter.objects.get(voter_reg_no=chairman_id))
         sec_gen = Aspirant.objects.get(voter=Voter.objects.get(voter_reg_no=sec_gen_id))
         treasurer = Aspirant.objects.get(voter=Voter.objects.get(voter_reg_no=treasurer_id))
-        Team.objects.create(team_name=team_name, team_logo=team_logo, election=election, chairman=chairman, sec_gen=sec_gen, treasurer=treasurer)
+        Team.objects.create(team_name=team_name, team_logo=team_logo, election=election, chairman=chairman, sec_gen=sec_gen, treasurer=treasurer, slogan=slogan)
         result['status'] = 'success'
         result['msg'] = 'Team created successfully.'
     else:
@@ -257,7 +258,7 @@ def team_reg(request):
 def get_team(request, id):
     team = get_object_or_404(Team, pk=id)
     result['status'] = 'success'
-    result['data'] = {'id': team.team_id, 'name': team.team_name, 'logo': team.team_logo, 'chairman': team.chairman.name, 'chairman_id': team.chairman.voter.voter_id, 'chairman_photo': team.chairman.aspirant_photo, 'treasurer': team.treasurer.name, 'treasurer_id': team.treasurer.voter.voter_id, 'treasurer_photo': team.treasurer.aspirant_photo, 'sec_gen': team.sec_gen.name, 'sec_gen_id': team.sec_gen.voter.voter_id, 'sec_gen_photo': team.sec_gen.aspirant_photo}
+    result['data'] = {'id': team.team_id, 'name': team.team_name, 'logo': team.team_logo, 'slogan': team.slogan, 'chairman': team.chairman.name, 'chairman_id': team.chairman.voter.voter_id, 'chairman_photo': team.chairman.aspirant_photo, 'treasurer': team.treasurer.name, 'treasurer_id': team.treasurer.voter.voter_id, 'treasurer_photo': team.treasurer.aspirant_photo, 'sec_gen': team.sec_gen.name, 'sec_gen_id': team.sec_gen.voter.voter_id, 'sec_gen_photo': team.sec_gen.aspirant_photo}
     return HttpResponse(json.dumps(result))
 
 # TODO: Make sure that only authenticated users can call this function

@@ -55,6 +55,7 @@ class Team(models.Model):
     team_id = models.AutoField(primary_key=True)
     team_name = models.CharField(max_length=255)
     team_logo = models.TextField()
+    slogan = models.TextField()
     election = models.ForeignKey(Election, on_delete=models.CASCADE)
     chairman = models.ForeignKey(Aspirant, related_name='chairman_id', on_delete=models.CASCADE)
     sec_gen = models.ForeignKey(Aspirant, related_name='sec_gen_id', on_delete=models.CASCADE)
