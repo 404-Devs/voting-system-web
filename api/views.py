@@ -1,4 +1,5 @@
 from django.http import HttpResponse
+from django.shortcuts import get_object_or_404
 from .models import Admin, Voter, School, Election, Aspirant, Team, Vote
 import hashlib
 import json
@@ -194,6 +195,18 @@ def get_elections(request):
     for data in elections:
         result['data'][data.election_id] = {'id': data.election_id, 'name': data.election_name, 'start': data.start_unix, 'end': data.end_unix, 'last_mod': time.mktime(data.last_modified.timetuple())}
     return HttpResponse(json.dumps(result))
+
+def get_election(request, election_id):
+    election = get_object_or_404(Election, pk=election_id)
+    teams = Team.objects.filter(election=election)
+    result['status'] = 'success'
+    result['data'] = {'id': election.election_id, 'name': election.election_name, 'start': election.start_unix, 'end': election.end_unix, 'last_mod': time.mktime(election.last_modified.timetuple())}
+    result['parties'] = {}
+
+    for team in teams:
+        result['parties'][team.team_id] = {'id': team.team_id, 'name': team.team_name, 'logo': team.team_logo, 'chairman_id': team.chairman.voter.voter_id, 'treasurer_id': team.treasurer.voter.voter_id, 'sec_gen_id': team.sec_gen.voter.voter_id}
+    return HttpResponse(json.dumps(result))
+
     
 # TODO: Make sure that only admins can call this function
 def aspirant_reg(request):
@@ -214,8 +227,11 @@ def aspirant_reg(request):
     return HttpResponse(json.dumps(result))
 
 
-def get_aspirant(request):
-    pass
+def get_aspirant(request, id):
+    asp = get_object_or_404(Aspirant, pk=id)
+    result['status'] = 'success'
+    result['data'] = {'id': asp.aspirant_id, 'name': asp.name, 'photo': asp.aspirant_photo}
+    return HttpResponse(json.dumps(result))
 
 # TODO: Make sure that only admins can call this function
 def team_reg(request):
@@ -238,12 +254,11 @@ def team_reg(request):
         result['msg'] = 'Make sure that you provide all the required values.'
     return HttpResponse(json.dumps(result))
 
-def get_teams(request):
-    pass
-
-
-def get_team(request):
-    pass
+def get_team(request, id):
+    team = get_object_or_404(Team, pk=id)
+    result['status'] = 'success'
+    result['data'] = {'id': team.team_id, 'name': team.team_name, 'logo': team.team_logo, 'chairman': team.chairman.name, 'chairman_id': team.chairman.voter.voter_id, 'chairman_photo': team.chairman.aspirant_photo, 'treasurer': team.treasurer.name, 'treasurer_id': team.treasurer.voter.voter_id, 'treasurer_photo': team.treasurer.aspirant_photo, 'sec_gen': team.sec_gen.name, 'sec_gen_id': team.sec_gen.voter.voter_id, 'sec_gen_photo': team.sec_gen.aspirant_photo}
+    return HttpResponse(json.dumps(result))
 
 # TODO: Make sure that only authenticated users can call this function
 # TODO: Add the blockchain

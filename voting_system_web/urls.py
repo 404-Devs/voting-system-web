@@ -1,10 +1,12 @@
 from django.contrib import admin
 from django.urls import path
-from api.views import voter_login, voter_reg, sch_reg, sch_update, election_reg, aspirant_reg, team_reg, vote, admin_login, admin_reg, get_elections
+from api.views import voter_login, voter_reg, sch_reg, sch_update, election_reg, aspirant_reg, team_reg, vote, admin_login, admin_reg, get_elections, get_team, get_election, get_aspirant
 from admin_site.views import index, login, elections, create_election, view_election, create_team, add_voter, add_school, schools, view_school, add_aspirant
+from results.views import r_index
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('', r_index),
     path('api/voter/login', voter_login),
     path('api/voter/register', voter_reg, name="voter_reg"),
     path('api/election/register', election_reg, name="election_reg"),
@@ -16,6 +18,9 @@ urlpatterns = [
     path('api/admin/login', admin_login),
     path('api/admin/register', admin_reg),
     path('api/elections', get_elections),
+    path('api/election/<int:election_id>', get_election),
+    path('api/team/<int:id>', get_team),
+    path('api/aspirant/<int:id>', get_aspirant),
     path('admin_site/', index, name="admin_index"),
     path('admin_site/login', login, name="admin_login"),
     path('admin_site/elections', elections, name="admin_elections"),

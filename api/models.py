@@ -32,7 +32,7 @@ class Election(models.Model):
     last_modified = models.DateTimeField(auto_now_add=True)
 
     @property
-    def to_unix(self):
+    def start_unix(self):
         return time.mktime(self.start_timestamp.timetuple())
 
     @property
