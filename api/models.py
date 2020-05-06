@@ -1,14 +1,18 @@
 from django.db import models
 import time
 
+def to_unix(t_time):
+    return time.mktime(t_time.timetuple())
+
 class Admin(models.Model):
     admin_id = models.AutoField(primary_key=True)
     first_name = models.CharField(max_length=50)
     last_name = models.CharField(max_length=50)
-    user_name = models.CharField(max_length=50)
+    user_name = models.CharField(max_length=50, unique=True)
     email = models.EmailField(unique=True)
     password = models.CharField(max_length=255)
     password_salt = models.CharField(max_length=255)
+    login_attempts = models.IntegerField(default=10)
 
 class School(models.Model):
     school_id = models.AutoField(primary_key=True)
@@ -33,11 +37,15 @@ class Election(models.Model):
 
     @property
     def start_unix(self):
-        return time.mktime(self.start_timestamp.timetuple())
+        return to_unix(self.start_timestamp)
 
     @property
     def end_unix(self):
-        return time.mktime(self.end_timestamp.timetuple())
+        return to_unix(self.end_timestamp)
+
+    @property
+    def last_mod_unix(self):
+        return to_unix(self.last_modified)
 
 class Aspirant(models.Model):
     aspirant_id = models.AutoField(primary_key=True)
@@ -45,6 +53,7 @@ class Aspirant(models.Model):
     fname = models.CharField(max_length=50)
     lname = models.CharField(max_length=50)
     aspirant_photo = models.TextField()
+    message = models.TextField()
     last_modified = models.DateTimeField(auto_now_add=True)
 
     @property

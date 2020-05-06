@@ -1,26 +1,32 @@
 from django.contrib import admin
 from django.urls import path
-from api.views import voter_login, voter_reg, sch_reg, sch_update, election_reg, aspirant_reg, team_reg, vote, admin_login, admin_reg, get_elections, get_team, get_election, get_aspirant
-from admin_site.views import index, login, elections, create_election, view_election, create_team, add_voter, add_school, schools, view_school, add_aspirant
-from results.views import r_index
+from api.views import *
+from admin_site.views import *
+from results.views import *
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
     path('', r_index),
+    path('admin/', admin.site.urls),
     path('api/voter/login', voter_login),
     path('api/voter/register', voter_reg, name="voter_reg"),
+    path('api/voter/delete/<int:id>', delete_voter),
     path('api/election/register', election_reg, name="election_reg"),
     path('api/aspirant/register', aspirant_reg, name="aspirant_reg"),
+    path('api/aspirant/<int:id>', get_aspirant),
+    path('api/aspirant/delete/<int:id>', delete_aspirant),
     path('api/team/register', team_reg, name="team_reg"),
+    path('api/team/<int:id>', get_team),
+    path('api/team/delete/<int:id>', delete_team),
     path('api/vote', vote),
     path('api/school/register', sch_reg, name="school_reg"),
+    path('api/school/delete/<int:id>', delete_sch),
     path('api/school/update', sch_update),
     path('api/admin/login', admin_login),
     path('api/admin/register', admin_reg),
+    path('api/admin/delete/<int:id>', delete_admin),
     path('api/elections', get_elections),
     path('api/election/<int:election_id>', get_election),
-    path('api/team/<int:id>', get_team),
-    path('api/aspirant/<int:id>', get_aspirant),
+    path('api/election/delete/<int:id>', delete_election),
     path('admin_site/', index, name="admin_index"),
     path('admin_site/login', login, name="admin_login"),
     path('admin_site/elections', elections, name="admin_elections"),
