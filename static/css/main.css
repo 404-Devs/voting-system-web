@@ -1,5 +1,5 @@
 a, a:hover, a:link, a:visited, a:active {
-    color: white !important;
+    color: white;
 }
 
 .wrapper {
@@ -25,6 +25,21 @@ a, a:hover, a:link, a:visited, a:active {
 .hideMe {
     visibility: hidden;
     height: 0px;
+}
+
+.votes-count {
+    margin-top: 25px;
+}
+
+.black {
+    color: #000000 !important;
+}
+
+.profile-photo {
+    height: 160px;
+    width: 160px;
+    border-radius: 50%;
+    margin-bottom: 16px;
 }
 
 #sidebar {

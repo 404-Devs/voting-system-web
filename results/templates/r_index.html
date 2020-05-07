@@ -1,4 +1,16 @@
 {% extends 'r_base.html' %}
 {% block content %}
-results site goes 'ere
+<h2>Votr Elections</h2>
+<div class="cards-wrapper">
+    {% for election in elections_list %}
+        <div class="card c-card">
+            <div class="card-body">
+                <h5 class="card-title">{{ election.name }}</h5>
+                <p class="card-text">Start: {{ election.start }}</p>
+                <p class="card-text">End: {{ election.end }}</p>
+                <a href="{% url "r_get_election" election.id %}" class="btn btn-primary">View</a>
+            </div>
+        </div>
+    {% endfor %}
+</div>
 {% endblock %}

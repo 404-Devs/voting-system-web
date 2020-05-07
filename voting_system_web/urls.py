@@ -6,6 +6,8 @@ from results.views import *
 
 urlpatterns = [
     path('', r_index),
+    path('election/<int:id>', r_get_election, name="r_get_election"),
+    path('aspirant/<int:id>', r_view_aspirant, name="r_view_aspirant"),
     path('admin/', admin.site.urls),
     path('api/voter/login', voter_login),
     path('api/voter/register', voter_reg, name="voter_reg"),
@@ -32,6 +34,7 @@ urlpatterns = [
     path('admin_site/elections', elections, name="admin_elections"),
     path('admin_site/create_election', create_election, name="admin_create_election"),
     path('admin_site/elections/<int:id>', view_election, name="admin_view_election"),
+    path('admin_site/aspirants/<int:id>', view_aspirant, name="admin_view_aspirant"),
     path('admin_site/create_team/<int:election_id>', create_team, name="admin_create_team"),
     path('admin_site/add_voter/<int:school_id>', add_voter, name="admin_add_voter"),
     path('admin_site/add_school', add_school, name="admin_add_school"),
