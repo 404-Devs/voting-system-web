@@ -64,5 +64,6 @@
 POST http://127.0.0.1:8000/api/vote HTTP/1.1
 content-type: application/x-www-form-urlencoded
 
-voter_reg=P15/1234/2018
-&election_id=4
+voter_reg=P15/1364/2018
+&election_id=11
+&team_id=10

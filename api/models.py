@@ -2,7 +2,7 @@ from django.db import models
 import time
 
 def to_unix(t_time):
-    return time.mktime(t_time.timetuple())
+    return int(time.mktime(t_time.timetuple()))
 
 class Admin(models.Model):
     admin_id = models.AutoField(primary_key=True)

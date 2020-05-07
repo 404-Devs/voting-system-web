@@ -1,11 +1,13 @@
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404
 from .models import Admin, Voter, School, Election, Aspirant, Team, Vote
+from .lib.blockchain import *
 import hashlib
 import json
 import binascii
 import os
-
+import uuid
+import time
 
 result = {'status': 'error'}
 
@@ -225,6 +227,8 @@ def election_reg(request):
     end_timestamp = request.POST.get("end_timestamp")
     if all([election_name, start_timestamp, end_timestamp]):
         Election.objects.create(election_name=election_name, start_timestamp=start_timestamp, end_timestamp=end_timestamp)
+        election = Election.objects.latest('election_id')
+        add_election_to_bc(load_env(), election.election_id, election_name, election.start_unix, election.end_unix)
         result['status'] = 'success'
         result['msg'] = 'Election created successfully.'
     else:
@@ -291,6 +295,8 @@ def aspirant_reg(request):
         try:
             voter = Voter.objects.get(voter_reg_no=voter_reg)
             Aspirant.objects.create(voter=voter, aspirant_photo=aspirant_photo, fname=fname, lname=lname, message=message)
+            aspirant = Aspirant.objects.latest('aspirant_id')
+            add_aspirant_to_bc(load_env(), aspirant.aspirant_id, aspirant.name)
             result['status'] = 'success'
             result['msg'] = 'Aspirant added successfully.'
         except Voter.DoesNotExist:
@@ -333,6 +339,8 @@ def team_reg(request):
         sec_gen = Aspirant.objects.get(voter=Voter.objects.get(voter_reg_no=sec_gen_id))
         treasurer = Aspirant.objects.get(voter=Voter.objects.get(voter_reg_no=treasurer_id))
         Team.objects.create(team_name=team_name, team_logo=team_logo, election=election, chairman=chairman, sec_gen=sec_gen, treasurer=treasurer, slogan=slogan)
+        team = Team.objects.latest('team_id')
+        add_team_to_bc(load_env(), election.election_id, team.team_id, team_name, chairman.aspirant_id, sec_gen.aspirant_id, treasurer.aspirant_id)
         result['status'] = 'success'
         result['msg'] = 'Team created successfully.'
     else:
@@ -357,20 +365,26 @@ def team_update(request):
     # TODO
     pass
 
-# TODO: Admins Only
+# TODO: Authenticated Users Only
 def vote(request):
     voter_id = request.POST.get("voter_reg")
     election_id = request.POST.get("election_id")
-    if all([voter_id, election_id]):
-        election = Election.objects.get(election_id=election_id)
+    team_id = request.POST.get("team_id")
+    if all([voter_id, election_id, team_id]):
+        election = Election.objects.get(election_id=int(election_id))
         voter = Voter.objects.get(voter_reg_no=voter_id)
+        team = Team.objects.get(team_id=int(team_id))
         # check if the voter has voted in this election before
         query = Vote.objects.filter(voter=voter, election=election)
         if query.count() > 0:
             result['msg'] = 'You have already voted. SMH.'
             return HttpResponse(json.dumps(result))
 
+        env = load_env()
+        votingToken = uuid.uuid4().hex[:32]
+        add_voting_token_bc(env, election.election_id, votingToken)
         Vote.objects.create(voter=voter, election=election)
+        cast_bc(env, int(election_id), team.team_id, votingToken)
         result['status'] = 'success'
         result['msg'] = 'You have voted successfully.'
     else:
