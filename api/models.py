@@ -16,8 +16,8 @@ class School(models.Model):
 
 class Voter(models.Model):
     voter_id = models.AutoField(primary_key=True)
-    voter_reg_no = models.CharField(max_length=50)
-    email = models.EmailField()
+    voter_reg_no = models.CharField(max_length=50, unique=True)
+    email = models.EmailField(unique=True)
     voter_password = models.CharField(max_length=255)
     password_salt = models.CharField(max_length=255)
     school = models.ForeignKey(School, on_delete=models.CASCADE)
