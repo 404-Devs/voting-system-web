@@ -10,6 +10,7 @@ import binascii
 import os
 import uuid
 from time import time
+import admin_site.views as admin_views
 
 
 result = {'status': 'error'}
@@ -91,14 +92,15 @@ def voter_reg(request):
     else:
         result['msg'] = 'Make sure that you provide all the required values.'
     # return JSON object
-    return HttpResponse(json.dumps(result))
+    return admin_views.view_school(request, int(school_id))
 
 @staff_member_required
 def delete_voter(request, id):
     voter = get_object_or_404(Voter, pk=id)
+    school_id = voter.school.school_id
     voter.delete()
     result['status'] = 'success'
-    return HttpResponse(json.dumps(result))
+    return admin_views.view_school(request, int(school_id))
 
 def update_password(request):
     reg_no = request.POST.get("reg_no")
@@ -149,7 +151,7 @@ def sch_reg(request):
         result['msg'] = 'School created successfully.'
     else:
         result['msg'] = 'Make sure that you provide all the required values.'
-    return HttpResponse(json.dumps(result))
+    return admin_views.schools(request)
 
 @staff_member_required
 def sch_update(request):
@@ -166,14 +168,14 @@ def sch_update(request):
             result['msg'] = 'School does not exist.'
     else:
         result['msg'] = 'Make sure that you provide all the required values.'
-    return HttpResponse(json.dumps(result))
+    return admin_views.view_school(request, int(sch_id))
 
 @staff_member_required
 def delete_sch(request, id):
     school = get_object_or_404(School, pk=id)
     school.delete()
     result['status'] = 'success'
-    return HttpResponse(json.dumps(result))
+    return admin_views.schools(request)
 
 @staff_member_required
 def election_reg(request):
@@ -188,7 +190,7 @@ def election_reg(request):
         result['msg'] = 'Election created successfully.'
     else:
         result['msg'] = 'Make sure that you provide all the required values.'
-    return HttpResponse(json.dumps(result))
+    return admin_views.elections(request)
 
 def get_elections(request):
     elections = Election.objects.all()
@@ -216,7 +218,7 @@ def delete_election(request, id):
     election = get_object_or_404(Election, pk=id)
     election.delete()
     result['status'] = 'success'
-    return HttpResponse(json.dumps(result))
+    return admin_views.elections(request)
 
 @staff_member_required
 def election_update(request):
@@ -237,7 +239,7 @@ def election_update(request):
             result['msg'] = 'Election does not exist.'
     else:
         result['msg'] = 'Make sure that you provide all the required values.'
-    return HttpResponse(json.dumps(result))
+    return admin_views.view_election(request, int(election_id))
 
 @staff_member_required
 def aspirant_reg(request):
@@ -258,9 +260,8 @@ def aspirant_reg(request):
             result['msg'] = 'Voter does not exist.'
     else:
         result['msg'] = 'Make sure that you provide all the required values.'
-    return HttpResponse(json.dumps(result))
+    return admin_views.add_aspirant(request)
 
-@staff_member_required
 def get_aspirant(request, id):
     asp = get_object_or_404(Aspirant, pk=id)
     result['status'] = 'success'
@@ -272,7 +273,7 @@ def delete_aspirant(request, id):
     aspirant = get_object_or_404(Aspirant, pk=id)
     aspirant.delete()
     result['status'] = 'success'
-    return HttpResponse(json.dumps(result))
+    return admin_views.add_aspirant(request)
 
 @staff_member_required
 def aspirant_update(request):
@@ -300,7 +301,7 @@ def team_reg(request):
         result['msg'] = 'Team created successfully.'
     else:
         result['msg'] = 'Make sure that you provide all the required values.'
-    return HttpResponse(json.dumps(result))
+    return admin_views.view_election(request, int(election_id))
 
 def get_team(request, id):
     team = get_object_or_404(Team, pk=id)
@@ -311,9 +312,10 @@ def get_team(request, id):
 @staff_member_required
 def delete_team(request, id):
     team = get_object_or_404(Team, pk=id)
+    election_id = team.election.election_id
     team.delete()
     result['status'] = 'success'
-    return HttpResponse(json.dumps(result))
+    return admin_views.view_election(request, election_id)
 
 @staff_member_required
 def team_update(request):
