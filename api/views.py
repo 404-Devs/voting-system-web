@@ -210,7 +210,7 @@ def get_election(request, election_id):
     result['parties'] = {}
 
     for team in teams:
-        result['parties'][team.team_id] = {'id': team.team_id, 'name': team.team_name, 'logo': team.team_logo, 'slogan': team.slogan, 'chairman_id': team.chairman.voter.voter_id, 'treasurer_id': team.treasurer.voter.voter_id, 'sec_gen_id': team.sec_gen.voter.voter_id}
+        result['parties'][team.team_id] = {'id': team.team_id, 'name': team.team_name, 'logo': team.team_logo, 'slogan': team.slogan, 'chairman': team.chairman.name, 'treasurer': team.treasurer.name, 'sec_gen': team.sec_gen.name}
     return HttpResponse(json.dumps(result))
 
 @staff_member_required
