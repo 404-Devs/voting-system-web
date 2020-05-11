@@ -1,16 +1,21 @@
 {% extends 'base.html' %}
 {% block content %}
-<h3>{{ name }}</h3>
-<h4>Student List</h4>
-<a href="{% url "admin_add_voter" id %}"><button class="btn btn-primary">Add Student</button></a>
-<div class="cards-wrapper">
-    {% for student in students_list %}
-        <div class="card c-card">
-            <div class="card-body">
-                <h5 class="card-title">{{ student.reg_no }}</h5>
-                <p class="card-text">{{ student.email }}</p>
-            </div>
-        </div>
-    {% endfor %}
+<div class="title">
+    <h3>{{ name }} <span>Students List</span></h3>
 </div>
+<div class="main">    
+    <a href="{% url "admin_add_voter" id %}"><button class="btn btn-primary">Add Student</button></a>
+    <div class="col mb-4">
+        {% for student in students_list %}
+            <div class="card c-card">
+                <div class="card-body">
+                    <h5 class="card-title">{{ student.reg_no }}</h5>
+                    <p class="card-text">{{ student.email }}</p>
+                </div>
+            </div>
+            <br>
+        {% endfor %}
+    </div>
+</div>
+
 {% endblock %}

@@ -1,33 +1,37 @@
 {% extends 'base.html' %}
 {% block content %}
-<h2>Add Voter as Aspirant</h2>
+<div class="title">
+  <h2>Add Aspirant</h2>
+</div>
+<div class="main">
+<div class="form">
 <form method="POST" action="{% url "aspirant_reg" %}">
   <div class="form-row">
-    <div class="form-group col-md-6">
+    <div class="form-group col-md-12">
       <label for="aspirant_reg_no">Registration Number i.e. P15/1234/2018 (should be registered as a voter)</label>
       <input type="text" class="form-control" id="aspirant_reg_no" name="aspirant_reg_no" required>
     </div>
   </div>
   <div class="form-row">
-    <div class="form-group col-md-6">
+    <div class="form-group col-md-12">
       <label for="fname">First Name</label>
       <input type="text" class="form-control" id="fname" name="fname" required>
     </div>
   </div>
   <div class="form-row">
-    <div class="form-group col-md-6">
+    <div class="form-group col-md-12">
       <label for="lname">Last Name</label>
       <input type="text" class="form-control" id="lname" name="lname" required>
     </div>
   </div>
   <div class="form-row">
-    <div class="form-group col-md-6">
+    <div class="form-group col-md-12">
       <label for="message">Message to Voters</label>
       <textarea class="form-control" id="message" name="message" required></textarea>
     </div>
   </div>
   <div class="form-row">
-    <div class="form-group col-md-6">
+    <div class="form-group col-md-12">
         <label for="logo">Aspirant Photo</label>
         <input type="file" accept="image/*" onchange="encodeImage(this, 'aspirant_photo')" class="form-control" id="photo" required>
         <input type="text" id="aspirant_photo" name="aspirant_photo" class="hideMe">
@@ -35,4 +39,6 @@
   </div>
   <button type="submit" class="btn btn-primary">Add</button>
 </form>
+</div>
+</div>
 {% endblock %}

@@ -1,56 +1,240 @@
 a, a:hover, a:link, a:visited, a:active {
-    color: white;
+    color: white !important;
 }
 
-.wrapper {
-    display: grid;
-    width: 100%;
-    height: 100vh;
-    grid-template-columns: 200px auto;
-    /* overflow: hidden !important; */
-}
 
-.c-card {
-    width: 18rem;
-    margin-bottom: 32px;
-    margin-left: 32px;
-}
 
 .cards-wrapper {
+   display: grid;
     margin-top: 16px;
     display: grid;
     grid-template-columns: 324px 324px 324px;
+    grid-auto-rows: minmax(125px, auto);
+    grid-gap: .5rem;   
 }
+
+.c-card {
+    margin: 5px 0 5px 0;    
+}
+
 
 .hideMe {
     visibility: hidden;
     height: 0px;
+} 
+/* ul span {
+  display: none;
+} */
+.sidebar {
+  height: 100%;
+  width: 200px;
+  position: fixed;
+  z-index: 1;
+  top: 50px;
+  left: 0;
+  background-color: #3a4147;
+  overflow-x: hidden;
+  transition: 0.5s;
+  padding-top: 10px;
+}
+.sidebar .closebtn{
+  position: absolute;
+  top: 0;
+  right: 25px;
+  font-size: 36px;
+  margin-left: 50px;
+  /* display: none; */
 }
 
-.votes-count {
-    margin-top: 25px;
+.main-content {
+	padding: 40px;
+	margin-top: 0;
+	padding: 10px;
+	padding-top: 44px;
+	height: 100%;
+  overflow: scroll;
+  margin-left: 200px;
 }
-
-.black {
-    color: #000000 !important;
+.main-content .title {
+	background-color: #eef1f7;
+	padding: 10px 20px;
+	font-weight: 700;
+	color: #333;
+	font-size: 18px;
+	
 }
-
-.profile-photo {
-    height: 160px;
-    width: 160px;
-    border-radius: 50%;
-    margin-bottom: 16px;
+.form {
+  height: 100%;
+  width: 40%;
+  margin: 10% 20% 10% 20%;
+  padding: 20px;
+  border-radius: 3px;
+  background: #fff;
+  box-shadow: 2px 0 2px 0 #253b49; 
+  bottom: 10%;
+  }
+  
+@media screen and (max-width: 700px){
+  .main-content{
+    margin-left: 0px;
+  }
+  .sidebar {
+    display: none;    
+  }
+  .head{
+    display: inline-block;
+    margin-left: 80%;
+}  
+.nav-item{
+  display: none;
 }
-
-#sidebar {
+.form {
+  height: 100%;
+  width: 100%;
+  margin: 5% 0 5% 0%;
+  padding: 20px;
+  border-radius: 3px;
+  background: #eef1f7;
+  box-shadow: 0 0 2px 0 #253b49; 
+ 
+  }
+}
+@media screen and (min-width: 700px) {
+  .main-content{
+    margin-left: 200px;
+   
+  }
+  .sidebar{
     width: 200px;
-    padding-left: 20px !important;
-    padding-top: 25px;
-    background: #3a4147;
-    color: #fff;
+  }
+  .sidebar .closebtn{
+    display: none;
+  }
+ 
+nav span{
+  display: none;
+}
+.form {
+  height: 100%;
+  width: 100%;
+  margin:5% 20% 10% 20%;
+  padding: 20px;
+  border-radius: 3px;
+  background: #eef1f7;
+  box-shadow: 0 0 2px 0 #253b49; 
+ 
+  }
+} 
+
+@media screen and (max-height: 450px) {
+  .sidebar {padding-top: 15px;}
+  .sidebar a {font-size: 18px;}
 }
 
-#content {
-    padding-left: 25px;
-    padding-top: 25px;
+  nav ul li{
+    /* border-bottom: 1px solid #353434; */
+    left: 0;
+  }
+  nav ul a {
+    position: relative;
+    display: block;
+    padding: 10px 10px 15px 30px;
+    color: #fff;
+    border-bottom: 1px solid #353434;
+  }
+ 
+  .main {
+    display: flex;
+    flex-flow: row wrap;
+    overflow: hidden;
+  }
+  .widget {
+    flex-basis: 250px;
+    flex-grow: 15;
+    height: 200px;
+    margin: 15px;
+    border-radius: 6px;
+    background-color: #ffffff;
+    position: relative;
+  }
+  .widget .title {
+    background-color: #eef1f7;
+    /* border-bottom: 1px solid #dfe4ec; */
+    padding: 10px;
+    border-top-left-radius: 6px;
+    border-top-right-radius: 6px;
+    color: #617085;
+    font-weight: 600;
+  }
+  
+/* 
+
+  @media screen and (max-width: 321px){
+    #sidebar{
+          display: none;
+      }
+    .head{
+        display: inline-block;
+        margin-left: 80%;
+    }  
+    .nav-item{
+      display: none;
+    }
+    .sidebar{
+      width: 0;
+    }
+    .sidebar .closebtn{
+      display: inline-block;
+    }
+    .content{
+      padding-left: 5px;
+      margin-left: 0px;
+      width: 100%;
+    }
+  } */
+/* 
+  @media screen and (max-width: 576px){
+    #sidebar{
+          display: none;
+      }
+    .head{
+        display: inline-block;
+        margin-left: 85%
+    }
+    .nav-item{
+      display: none;
+    }
+    ul span {
+      display: inline-block;
+    }
+    .sidebar{
+      width: 0;
+    }
+    .sidebar .closebtn{
+      display: inline-block;
+    }
+    .content{
+      padding-left: 5px;
+      margin-left: 0px;
+    }
+  } */
+.head span{
+  float: right;
 }
+
+.static-nav{
+  position: fixed !important;
+  width: 100% !important;
+  top: 0 !important;
+  /* overflow: hidden !important; */
+}
+/* 
+
+.main {
+  margin-left: 200px;
+  flex: 1;
+  padding: 25px;
+  background: #f5f5f5;
+} */
+
+

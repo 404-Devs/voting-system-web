@@ -1,14 +1,18 @@
 {% extends 'base.html' %}
 {% block content %}
-<h2>Schools</h2>
-<div class="cards-wrapper">
-    {% for school in schools_list %}
-        <div class="card c-card">
-            <div class="card-body">
-                <h5 class="card-title">{{ school.name }}</h5>
-                <a href="{% url "view_school" school.id %}" class="btn btn-primary">View</a>
+<div class="title">
+    <h2>Schools</h2>
+</div>
+<div class="main">
+    <div class="col mb-4">
+        {% for school in schools_list %}
+            <div class="card c-card">
+                <div class="card-body">
+                   <p></p> <h5 class="card-title">{{ school.name }}</h5>
+                    <a href="{% url "view_school" school.id %}" class="btn btn-primary">View</a></p>
+                </div>
             </div>
-        </div>
-    {% endfor %}
+        {% endfor %}
+    </div>
 </div>
 {% endblock %}

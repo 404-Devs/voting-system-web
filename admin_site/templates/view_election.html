@@ -1,21 +1,26 @@
 {% extends 'base.html' %}
 {% block content %}
-<h3>{{ name }}</h3>
+<div class="title">
+    <h2>{{ name }}</h2>
+</div>
+<div class="">
+    
 <p>Start: {{ start }}</p>
 <p>End: {{ end }}</p>
 <h4>Parties</h4>
 <a href="{% url "admin_create_team" id %}"><button class="btn btn-primary">Add Party</button></a>
-<div class="cards-wrapper">
+<div class="cards-wrappe">
     {% for team in teams_list %}
-        <div class="card c-card">
+        <div class="card ">
             <img src="{{ team.logo }}" class="card-img-top" alt="Party Logo">
             <div class="card-body">
                 <h5 class="card-title">{{ team.name }}</h5>
-                <p class="card-text"><a href="{% url "admin_view_aspirant" team.chairman_id %}" class="black">Chairman: {{ team.chairman }}</a></p>
-                <p class="card-text"><a href="{% url "admin_view_aspirant" team.treasurer_id %}" class="black">Treasurer: {{ team.treasurer }}</a></p>
-                <p class="card-text"><a href="{% url "admin_view_aspirant" team.sec_gen_id %}" class="black">Sec. Gen.: {{ team.sec_gen }}</a></p>
+                <p class="card-text">Chairman: {{ team.chairman }}</p>
+                <p class="card-text">Sec. Gen.: {{ team.sec_gen }}</p>
+                <p class="card-text">Treasurer: {{ team.treasurer }}</p>
             </div>
         </div>
     {% endfor %}
+</div>
 </div>
 {% endblock %}

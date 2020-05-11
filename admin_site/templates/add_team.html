@@ -1,40 +1,47 @@
 {% extends 'base.html' %}
 {% block content %}
-<h2>Add Party</h2>
-<form method="POST" action="{% url "team_reg" %}">
-  <div class="form-row">
-    <div class="form-group col-md-6">
-      <label for="team_name">Name</label>
-      <input type="text" class="form-control" id="team_name" name="team_name" required>
+<div class="title">
+  <h2>Create Party </h2>
+</div>
+<div class="main">
+  
+<div class="form">  
+  <form method="POST" action="{% url "team_reg" %}">
+    <div class="form-row">
+      <div class="form-group col-md-12">
+        <label for="team_name">Name</label>
+        <input type="text" class="form-control" id="team_name" name="team_name" required>
+      </div>
     </div>
+  
+    <div class="form-group col-md-12">
+      <label for="logo">Team Logo</label>
+      <input type="file" accept="image/*" onchange="encodeImage(this, 'team_logo')" class="form-control" id="logo" required>
+      <input type="text" id="team_logo" name="team_logo" class="hideMe">
+      <input type="text" name="election_id" value="{{ election_id }}" class="hideMe">
+    </div>
+  
+    <div class="form-group col-md-12">
+      <label for="slogan">Slogan</label>
+      <input type="text" class="form-control" id="slogan" name="slogan" required>
+    </div>
+  
+    <div class="form-group col-md-12">
+      <label for="chairman_reg">Chairman Reg. No. (should be registered as an aspirant)</label>
+      <input type="text" class="form-control" id="chairman_reg" name="chairman_reg" required>
+    </div>
+  
+    <div class="form-group col-md-12">
+      <label for="treasurer_reg">Treasurer Reg. No. (should be registered as an aspirant)</label>
+      <input type="text" class="form-control" id="treasurer_reg" name="treasurer_reg" required>
+    </div>
+  
+    <div class="form-group col-md-12">
+      <label for="sec_gen_reg">Secretary General Reg. No. (should be registered as an aspirant)</label>
+      <input type="text" class="form-control" id="sec_gen_reg" name="sec_gen_reg" required>
+    </div>
+    <button type="submit" class="btn btn-primary">Create</button>
+  </form>
   </div>
-
-  <div class="form-group col-md-6">
-    <label for="logo">Team Logo</label>
-    <input type="file" accept="image/*" onchange="encodeImage(this, 'team_logo')" class="form-control" id="logo" required>
-    <input type="text" id="team_logo" name="team_logo" class="hideMe">
-    <input type="text" name="election_id" value="{{ election_id }}" class="hideMe">
-  </div>
-
-  <div class="form-group col-md-6">
-    <label for="slogan">Slogan</label>
-    <input type="text" class="form-control" id="slogan" name="slogan" required>
-  </div>
-
-  <div class="form-group col-md-6">
-    <label for="chairman_reg">Chairman Reg. No. (should be registered as an aspirant)</label>
-    <input type="text" class="form-control" id="chairman_reg" name="chairman_reg" required>
-  </div>
-
-  <div class="form-group col-md-6">
-    <label for="treasurer_reg">Treasurer Reg. No. (should be registered as an aspirant)</label>
-    <input type="text" class="form-control" id="treasurer_reg" name="treasurer_reg" required>
-  </div>
-
-  <div class="form-group col-md-6">
-    <label for="sec_gen_reg">Secretary General Reg. No. (should be registered as an aspirant)</label>
-    <input type="text" class="form-control" id="sec_gen_reg" name="sec_gen_reg" required>
-  </div>
-  <button type="submit" class="btn btn-primary">Create</button>
-</form>
+</div>
 {% endblock %}

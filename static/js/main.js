@@ -6,3 +6,11 @@ function encodeImage(element, target) {
     }
     reader.readAsDataURL(file);
 }
+
+function closeNav() {
+    document.getElementById("mySidenav").style.width = "0";
+  }
+  function openNav() {
+    document.getElementById("mySidenav").style.display = "block";
+    document.getElementById("mySidenav").style.width = "100%";
+  }
