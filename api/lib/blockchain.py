@@ -7,7 +7,7 @@ def load_env():
     PRIVATE_KEY = keys['private']
     PUBLIC_KEY = keys['public']
     contract = json.loads(open("api/lib/Voting.json", "r").read())
-    VOTING = WEB3.eth.contract(address="0x5c275B56638Ee393533ac7Ac767d30F6fC100285", abi=contract['abi'])
+    VOTING = WEB3.eth.contract(address="0x7398761b4D2Dd02Fb3DA3dD99f2719c650cb365e", abi=contract['abi'])
     return WEB3, PRIVATE_KEY, PUBLIC_KEY, VOTING
 
 # too bad we won't block waiting for the transaction to complete
@@ -38,7 +38,10 @@ def get_winner_bc(env, electionId):
     execute(env, env[3].functions.getWinner(electionId).call())
 
 def get_team_bc(env, electionId, teamId):
-    execute(env, env[3].functions.getTeam(electionId, teamId).call())
+    return env[3].functions.getTeam(electionId, teamId).call()
 
 def get_ballot_bc(env, electionId, token):
     execute(env, env[3].functions.getBallot(electionId, token).call())
+
+def get_results_bc(env, electionId):
+    return env[3].functions.getResults(electionId).call()

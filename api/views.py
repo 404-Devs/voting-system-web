@@ -204,13 +204,18 @@ def get_elections(request):
 
 def get_election(request, election_id):
     election = get_object_or_404(Election, pk=election_id)
+    results_bc = get_results_bc(load_env(), int(election_id))
+    vote_count = {}
+    for team in results_bc:
+        vote_count[team[0]] = team[5]
+
     teams = Team.objects.filter(election=election)
     result['status'] = 'success'
     result['data'] = {'id': election.election_id, 'name': election.election_name, 'start': election.start_unix, 'end': election.end_unix, 'last_mod': election.last_mod_unix}
     result['parties'] = {}
 
     for team in teams:
-        result['parties'][team.team_id] = {'id': team.team_id, 'name': team.team_name, 'logo': team.team_logo, 'slogan': team.slogan, 'chairman': team.chairman.name, 'treasurer': team.treasurer.name, 'sec_gen': team.sec_gen.name}
+        result['parties'][team.team_id] = {'id': team.team_id, 'name': team.team_name, 'logo': team.team_logo, 'slogan': team.slogan, 'chairman': team.chairman.name, 'treasurer': team.treasurer.name, 'sec_gen': team.sec_gen.name, 'votes': vote_count[team.team_id]}
     return HttpResponse(json.dumps(result))
 
 @staff_member_required
@@ -276,11 +281,6 @@ def delete_aspirant(request, id):
     return admin_views.add_aspirant(request)
 
 @staff_member_required
-def aspirant_update(request):
-    # TODO
-    pass
-
-@staff_member_required
 def team_reg(request):
     team_name = request.POST.get("team_name")
     team_logo = request.POST.get("team_logo")
@@ -291,6 +291,10 @@ def team_reg(request):
     slogan = request.POST.get("slogan")
     if all([team_name, team_logo, election_id, chairman_id, sec_gen_id, treasurer_id, slogan]):
         election = Election.objects.get(election_id=election_id)
+        if time() > election.start_unix and time() < election.end_unix:
+            result['msg'] = "You cannot register teams at this time. The election has either started or ended."
+            return HttpResponse(json.dumps(result))
+
         chairman = Aspirant.objects.get(voter=Voter.objects.get(voter_reg_no=chairman_id))
         sec_gen = Aspirant.objects.get(voter=Voter.objects.get(voter_reg_no=sec_gen_id))
         treasurer = Aspirant.objects.get(voter=Voter.objects.get(voter_reg_no=treasurer_id))
@@ -317,11 +321,6 @@ def delete_team(request, id):
     result['status'] = 'success'
     return admin_views.view_election(request, election_id)
 
-@staff_member_required
-def team_update(request):
-    # TODO
-    pass
-
 def vote(request):
     voter_id = request.POST.get("voter_reg")
     election_id = request.POST.get("election_id")
@@ -342,16 +341,20 @@ def vote(request):
         # check if the voter has voted in this election before
         query = Vote.objects.filter(voter=voter, election=election)
         if query.count() > 0:
-            result['msg'] = 'You have already voted. SMH.'
+            result['msg'] = 'You have already voted. SMH 😒.'
             return HttpResponse(json.dumps(result))
 
         env = load_env()
         votingToken = uuid.uuid4().hex[:32]
-        # add_voting_token_bc(env, election.election_id, votingToken)
         Vote.objects.create(voter=voter, election=election)
         cast_bc(env, int(election_id), team.team_id, votingToken)
         result['status'] = 'success'
         result['msg'] = 'You have voted successfully.'
     else:
         result['msg'] = 'Make sure that you provide all the required values.'
+    return HttpResponse(json.dumps(result))
+
+def results(request, election_id):
+    result['status'] = 'success'
+    result['data'] = get_results_bc(load_env(), int(election_id))
     return HttpResponse(json.dumps(result))

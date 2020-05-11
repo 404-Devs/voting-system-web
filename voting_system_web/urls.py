@@ -26,6 +26,7 @@ urlpatterns = [
     path('api/elections', get_elections),
     path('api/election/<int:election_id>', get_election),
     path('api/election/delete/<int:id>', delete_election),
+    path('api/results/<int:election_id>', results),
     path('admin_site/', index, name="admin_index"),
     path('admin_site/elections', elections, name="admin_elections"),
     path('admin_site/create_election', create_election, name="admin_create_election"),
