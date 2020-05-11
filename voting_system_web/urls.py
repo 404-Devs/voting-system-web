@@ -24,7 +24,7 @@ urlpatterns = [
     path('api/school/delete/<int:id>', delete_sch),
     path('api/school/update', sch_update),
     path('api/elections', get_elections),
-    path('api/election/<int:election_id>', get_election),
+    path('api/election/<int:election_id>/<int:voter_id>', get_election),
     path('api/election/delete/<int:id>', delete_election),
     path('api/results/<int:election_id>', results),
     path('admin_site/', index, name="admin_index"),

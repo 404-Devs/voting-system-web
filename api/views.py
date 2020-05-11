@@ -202,16 +202,19 @@ def get_elections(request):
         result['data'][data.election_id] = {'id': data.election_id, 'name': data.election_name, 'start': data.start_unix, 'end': data.end_unix, 'last_mod': data.last_mod_unix}
     return HttpResponse(json.dumps(result))
 
-def get_election(request, election_id):
+def get_election(request, election_id, voter_id):
     election = get_object_or_404(Election, pk=election_id)
     results_bc = get_results_bc(load_env(), int(election_id))
+    voter = Voter.objects.get(voter_id=voter_id)
+    query = Vote.objects.filter(voter=voter, election=election)
+
     vote_count = {}
     for team in results_bc:
         vote_count[team[0]] = team[5]
 
     teams = Team.objects.filter(election=election)
     result['status'] = 'success'
-    result['data'] = {'id': election.election_id, 'name': election.election_name, 'start': election.start_unix, 'end': election.end_unix, 'last_mod': election.last_mod_unix}
+    result['data'] = {'id': election.election_id, 'name': election.election_name, 'start': election.start_unix, 'end': election.end_unix, 'last_mod': election.last_mod_unix, 'voted': query.count() > 0}
     result['parties'] = {}
 
     for team in teams:
