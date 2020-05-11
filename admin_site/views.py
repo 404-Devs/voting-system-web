@@ -2,11 +2,15 @@ from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse
 from django.contrib.admin.views.decorators import staff_member_required
 from api.models import Election, Team, School, Voter, Aspirant
+from time import time
+from datetime import datetime
+from django.utils.timezone import make_aware
 
 
 @staff_member_required
 def index(request):
-    return render(request, "index.html")
+    ongoing = Election.objects.filter(start_timestamp__lt = make_aware(datetime.fromtimestamp(time())))
+    return render(request, "index.html", {'elections': Election.objects.count(), 'schools': School.objects.count(), 'teams': Team.objects.count(), 'voters': Voter.objects.count(), 'ongoing': ongoing.count()})
 
 @staff_member_required
 def elections(request):
