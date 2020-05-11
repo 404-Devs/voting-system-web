@@ -38,9 +38,9 @@ def voter_login(request):
                     voter.login_attempts = 10
                     voter.save()
                 result['status'] = 'success'
-                # no sane person should return the salt, but "meh!"
+                # no sane person should return the password hash, but "meh!"
                 result['data'] = {'id': voter.voter_id, 'reg_no': voter.voter_reg_no, 'email': voter.email,
-                                  'school_id': voter.school.school_id, 'dibs': voter.password_salt}
+                                  'school_id': voter.school.school_id, 'dibs': pwdhash}
                 result['msg'] = 'Authentication successful.'
             else:
                 voter.login_attempts -= 1
