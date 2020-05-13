@@ -219,6 +219,7 @@ def get_election(request, election_id, voter_id):
 
     for team in teams:
         result['parties'][team.team_id] = {'id': team.team_id, 'name': team.team_name, 'logo': team.team_logo, 'slogan': team.slogan, 'chairman': team.chairman.name, 'treasurer': team.treasurer.name, 'sec_gen': team.sec_gen.name, 'votes': vote_count[team.team_id]}
+    result['parties'] = {k: v for k, v in sorted(result['parties'].items(), key=lambda item: item[1], reverse=True)}
     return HttpResponse(json.dumps(result))
 
 @staff_member_required

@@ -2,12 +2,8 @@ from django.contrib import admin
 from django.urls import path
 from api.views import *
 from admin_site.views import *
-from results.views import *
 
 urlpatterns = [
-    path('', r_index),
-    path('election/<int:id>', r_get_election, name="r_get_election"),
-    path('aspirant/<int:id>', r_view_aspirant, name="r_view_aspirant"),
     path('admin/', admin.site.urls),
     path('api/voter/login', voter_login),
     path('api/voter/register', voter_reg, name="voter_reg"),
@@ -27,15 +23,15 @@ urlpatterns = [
     path('api/election/<int:election_id>/<int:voter_id>', get_election),
     path('api/election/delete/<int:id>', delete_election),
     path('api/results/<int:election_id>', results),
-    path('admin_site/', index, name="admin_index"),
-    path('admin_site/elections', elections, name="admin_elections"),
-    path('admin_site/create_election', create_election, name="admin_create_election"),
-    path('admin_site/elections/<int:id>', view_election, name="admin_view_election"),
-    path('admin_site/aspirants/<int:id>', view_aspirant, name="admin_view_aspirant"),
-    path('admin_site/create_team/<int:election_id>', create_team, name="admin_create_team"),
-    path('admin_site/add_voter/<int:school_id>', add_voter, name="admin_add_voter"),
-    path('admin_site/add_school', add_school, name="admin_add_school"),
-    path('admin_site/schools', schools, name="admin_schools"),
-    path('admin_site/view_school/<int:id>', view_school, name="view_school"),
-    path('admin_site/add_aspirant/', add_aspirant, name="admin_add_aspirant")
+    path('', index, name="admin_index"),
+    path('elections', elections, name="admin_elections"),
+    path('create_election', create_election, name="admin_create_election"),
+    path('elections/<int:id>', view_election, name="admin_view_election"),
+    path('aspirants/<int:id>', view_aspirant, name="admin_view_aspirant"),
+    path('create_team/<int:election_id>', create_team, name="admin_create_team"),
+    path('add_voter/<int:school_id>', add_voter, name="admin_add_voter"),
+    path('add_school', add_school, name="admin_add_school"),
+    path('schools', schools, name="admin_schools"),
+    path('view_school/<int:id>', view_school, name="view_school"),
+    path('add_aspirant/', add_aspirant, name="admin_add_aspirant")
 ]
