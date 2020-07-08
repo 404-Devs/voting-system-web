@@ -2,6 +2,9 @@ from django.contrib import admin
 from django.urls import path
 from api.views import *
 from admin_site.views import *
+from django.contrib.auth.views import LogoutView
+from django.conf.urls import url
+from django.conf import settings
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -33,5 +36,6 @@ urlpatterns = [
     path('add_school', add_school, name="admin_add_school"),
     path('schools', schools, name="admin_schools"),
     path('view_school/<int:id>', view_school, name="view_school"),
-    path('add_aspirant/', add_aspirant, name="admin_add_aspirant")
+    path('add_aspirant/', add_aspirant, name="admin_add_aspirant"),
+    url(r'^logout/$', LogoutView.as_view(), name='logout')
 ]

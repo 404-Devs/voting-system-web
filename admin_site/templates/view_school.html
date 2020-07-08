@@ -1,11 +1,12 @@
 {% extends 'base.html' %}
 {% block content %}
-<div class="title">
+<div class="title-top">
     <h3>{{ name }} <span>Students List</span></h3>
 </div>
 <div class="main">    
     <a href="{% url "admin_add_voter" id %}"><button class="btn btn-primary">Add Student</button></a>
-    <div class="col mb-4">
+    <div class="cards-wrapper"></div>
+    <div class="col m-4">
         {% for student in students_list %}
             <div class="card c-card">
                 <div class="card-body">
