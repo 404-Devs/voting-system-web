@@ -1,7 +1,7 @@
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404
 from django.contrib.auth import authenticate, login
-from .models import Voter, School, Election, Aspirant, Team, Vote
+from .models import Voter, School, Election, Aspirant, Team, Vote, SendGrid
 from django.contrib.admin.views.decorators import staff_member_required
 from .lib.blockchain import *
 import hashlib
@@ -11,6 +11,9 @@ import os
 import uuid
 from time import time
 import admin_site.views as admin_views
+from random import randint
+from sendgrid import SendGridAPIClient
+from sendgrid.helpers.mail import Mail
 
 
 result = {'status': 'error'}
@@ -59,7 +62,7 @@ def voter_reg(request):
     # get values passed in the POST object
     reg_no = request.POST.get("reg_no")
     email = request.POST.get('email')
-    password = request.POST.get("password")
+    password = "".join([str(randint(0,9)) for i in range(6)])
     school_id = request.POST.get("school_id")
     # make sure that the POST values are not empty
     if all([reg_no, email, password, school_id]):
@@ -82,9 +85,25 @@ def voter_reg(request):
         try:
             # get the school with the provided school id
             school = School.objects.get(school_id=int(school_id))
-            # Save the voter
-            Voter.objects.create(voter_reg_no=reg_no, email=email, voter_password=pwdhash.decode('ascii'),
+            message = Mail(
+                        from_email='admin@votr.tech',
+                        to_emails=email,
+                        subject=f'Hello {reg_no}, here is your Votr access code.',
+                        html_content=f'{password} is your Votr access code.')
+            sender_key = SendGrid.objects.all()[0].key
+            print(sender_key)
+            try:
+                sg = SendGridAPIClient(sender_key)
+                response = sg.send(message)
+                print(response.status_code)
+                print(response.body)
+                print(response.headers)
+                # Save the voter
+                Voter.objects.create(voter_reg_no=reg_no, email=email, voter_password=pwdhash.decode('ascii'),
                                  password_salt=salt.decode('ascii'), school=school)
+            except Exception as e:
+                print(e.message)
+
             result['status'] = 'success'
             result['msg'] = 'Voter created successfully.'
         except School.DoesNotExist:

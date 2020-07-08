@@ -66,3 +66,8 @@ class Vote(models.Model):
     voter = models.ForeignKey(Voter, on_delete=models.SET_NULL, null=True)
     election = models.ForeignKey(Election, on_delete=models.SET_NULL, null=True)
     last_modified = models.DateTimeField(auto_now_add=True)
+
+# this isn't a great idea, but I'm in a hurry :)
+class SendGrid(models.Model):
+    key_id = models.AutoField(primary_key=True)
+    key = models.TextField()
