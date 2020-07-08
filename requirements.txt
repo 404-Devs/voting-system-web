@@ -2,3 +2,4 @@ web3
 Django==2.2.7
 gunicorn
 django-heroku
+sendgrid
