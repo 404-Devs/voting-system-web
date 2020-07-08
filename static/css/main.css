@@ -17,6 +17,10 @@ a, a:hover, a:link, a:visited, a:active {
     margin: 5px 0 5px 0;    
 }
 
+.card-img-top {
+  width: 1px;
+}
+
 
 .hideMe {
     visibility: hidden;

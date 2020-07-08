@@ -9,7 +9,7 @@
 <p>End: {{ end }}</p>
 <h4>Parties</h4>
 <a href="{% url "admin_create_team" id %}"><button class="btn btn-primary">Add Party</button></a>
-<div class="cards-wrappe">
+<div class="cards-wrapper">
     {% for team in teams_list %}
         <div class="card ">
             <img src="{{ team.logo }}" class="card-img-top" alt="Party Logo">
