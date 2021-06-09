@@ -1,5 +1,5 @@
 web3
-Django==3.1.9
+Django==3.1.10
 gunicorn
 django-heroku
 sendgrid
